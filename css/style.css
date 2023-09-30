@@ -5,6 +5,101 @@
 }
 
 body {
-    color: #ffffff;
+    color: #000000;
     background-color: #f8f8f8;
 }
+
+.page-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator-container {
+    width: 550px;
+    height: 850px;
+    padding: 45px 40px;
+    border-radius: 25px;
+    background-color: #252424;
+}
+
+.screen {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+    height: 175px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border-radius: 25px;
+    font-family: Poppins;
+    font-size: 55px;
+    background-color: rgb(201, 200, 200); 
+}
+
+.keypad {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+}
+
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 95px;
+    height: 95px;
+    border: none;
+    border-radius: 47.5px;
+    transition: scale .35s;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    font-size: 40px;
+    font-weight: 600;
+    font-family: arial;
+}
+
+.button:hover {
+    opacity: 85%;
+    scale: 1.07;
+}
+
+.button:active {
+    scale: .95;
+}
+
+.numbers {
+    font-weight: 500;
+    background-image: linear-gradient(to right, white , #E6E6E6);
+}
+
+.operations {
+    background-image: linear-gradient(to right, darkorange , #fb6904);
+}
+
+.equals {
+    width: 210px;
+    height: 90px;
+    border-radius: 45px;
+    background-image: linear-gradient(to right, darkorange , #fb6904);
+}
+
+.C, .AC {
+    width: 155px;
+    height: 80px;
+    border-radius: 45px; 
+    background-image: linear-gradient(to right, #f45b69 , #F42336);
+}
+
+img {
+    width: 40px;
+    height: 40px;
+}
+  
+
+
+
+/* the width we want is around 470px total (buttons' combined width + gaps) */
+/* standard button's width = 95px */
+/* standard gap width: 25px */
