@@ -1,115 +1,118 @@
 const display = document.getElementById("display");
-const numberButtons = document.querySelectorAll(".numbers")
+const numberButtons = document.querySelectorAll(".numbers");
 const operationButtons = document.querySelectorAll(".operations");
-const decimalButton = document.getElementById("decimalButton");
+const equalsButton = document.getElementById("equalsButton");
+const backSpaceButton = document.getElementById("backSpaceButton");
+const clearButton = document.getElementById("clearButton");
+
+numberButtons.forEach((button) => button.addEventListener("click", getOperand));
+operationButtons.forEach((button) => button.addEventListener("click", getOperation));
+equalsButton.addEventListener("click", equal);
+backSpaceButton.addEventListener("click", backspace);
+clearButton.addEventListener("click", clear);
 
 let firstOperand = "";
-let lastOperand = "";
-let operation = null;
-let result = null;
+let secondOperand = "";
+let operation = "";
 let displayValue = "";
 
 const operate = {
     "+": (a, b) => +a + +b,
     "-": (a, b) => a - b,
     "*": (a, b) => a * b,
-    "/": (a, b) => {
-        if (+b === 0) {
-            clear();
-            displayError("division by zero");
-        }
-        return a / b;
-    }
-}
+    "/": (a, b) => a / b,
+};
 
 function updateDisplay() {
-    selectDisplayValue();
-    roundLongDecimals();
+    if (displayValue) {
+        display.textContent = displayValue;
+    } else {
+        selectDisplayValue();
+    }
     preventDisplayOverflow();
-    preventDivisionByZero();
     display.textContent = displayValue;
+    displayValue = "";
 }
 
 function selectDisplayValue() {
-    if (result) {
-        displayValue += result;
-    } else if (firstOperand && !operation) {
-        displayValue += firstOperand;
-    } else if (lastOperand && operation) {
-        displayValue += lastOperand;
-    }
-}
-
-function roundLongDecimals() {
-    const MAX_DECIMALS = 5;
-    let decimalIndex = displayValue.indexOf(".");
-    let decimalsCount = displayValue.slice(decimalIndex).length;
-    if (decimalIndex > -1 && decimalsCount > MAX_DECIMALS) {
-        displayValue = +displayValue.toFixed(MAX_DECIMALS);
-    }
+    if (secondOperand) displayValue = secondOperand;
+    else if (firstOperand) displayValue = firstOperand;
+    else displayValue = "";
 }
 
 function preventDisplayOverflow() {
     const MAX_LENGTH_BEFORE_FIRST_OVERFLOW = 12;
     const MAX_LENGTH_BEFORE_SECOND_OVERFLOW = 17;
+    display.style.fontSize = `55px`;
     if (displayValue.length > MAX_LENGTH_BEFORE_SECOND_OVERFLOW) {
         display.style.fontSize = `30px`;
     } else if (displayValue.length > MAX_LENGTH_BEFORE_FIRST_OVERFLOW) {
         display.style.fontSize = `40px`;
-    } 
+    }
 }
 
-function displayError(message) {
-    display.textContent = `Error: ${message}`;
-}
-
-function concatenateInputtedNumbers(e) {
-    if (!operation) {
-        firstOperand += ensureSingleDecimal(e, firstOperand);;
-    } else if (operation) {
-        lastOperand += ensureSingleDecimal(e, lastOperand);;
+function getOperand(event) {
+    if (operation) {
+        secondOperand += ensureSingleDecimal(event, secondOperand);
+    } else {
+        firstOperand += ensureSingleDecimal(event, firstOperand);
     }
     updateDisplay();
 }
 
-function ensureSingleDecimal(e, targetOperand) {
-    if (e.target.value === "." && targetOperand.includes(".")) {
-        e.target.value = "";
+function ensureSingleDecimal(event, operand) {
+    if (event.target.value === "." && operand.includes(".")) {
+        return "";
     }
-    return e.target.value;
+    return event.target.value;
 }
 
-function getOperation(e) {
-    if (firstOperand && operation && lastOperand) {
-        result = operate[operation](firstOperand, lastOperand);
-        firstOperand = result;
-        operation = e.target.value;
-    } else if (firstOperand) {
-        operation = e.target.value;
+function getOperation(event) {
+    if (firstOperand && operation && secondOperand) {
+        equal();
     }
+    operation = event.target.value;
 }
 
 function equal() {
-    if (firstOperand && operation && lastOperand) {
-        let temp = operate[operation](firstOperand, lastOperand);
-        clear();
-        result = temp;
+    if (firstOperand && operation && secondOperand) {
+        firstOperand = operate[operation](firstOperand, secondOperand).toString();
+        secondOperand = operation = "";
+        ensureNoZeroDivision();
+        roundLongDecimals();
         updateDisplay();
+    }
+}
+
+function ensureNoZeroDivision() {
+    if (firstOperand === "Infinity") {
+        firstOperand = operation = "";
+        display.style.fontSize = "30px";
+        displayValue = "Error: Cannot divide by zero";
+    }
+}
+
+function roundLongDecimals() {
+    const MAX_DECIMALS = 2;
+    let decimalIndex = firstOperand.indexOf(".");
+    let decimalsCount = firstOperand.slice(decimalIndex).length;
+    if (decimalIndex > -1 && decimalsCount > MAX_DECIMALS) {
+        firstOperand = Number(firstOperand).toFixed(MAX_DECIMALS);
     }
 }
 
 function backspace() {
     if (operation) {
-        lastOperand = lastOperand.slice(0, lastOperand.length-1);
+        secondOperand = secondOperand.slice(0, secondOperand.length - 1);
     } else {
-        firstOperand = firstOperand.slice(0, firstOperand.length-1);
+        firstOperand = firstOperand.slice(0, firstOperand.length - 1);
     }
+    updateDisplay();
 }
 
 function clear() {
     firstOperand = "";
-    lastOperand = "";
-    operation = null;
-    result = null;
-    displayValue = "";
+    secondOperand = "";
+    operation = "";
+    updateDisplay();
 }

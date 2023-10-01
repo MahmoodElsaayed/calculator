@@ -34,7 +34,7 @@ body {
     border-radius: 25px;
     font-family: Poppins;
     font-size: 55px;
-    background-color: rgb(201, 200, 200); 
+    background-color: rgb(201, 200, 200);
 }
 
 .keypad {
@@ -71,32 +71,33 @@ body {
 
 .numbers {
     font-weight: 500;
-    background-image: linear-gradient(to right, white , #E6E6E6);
+    background-image: linear-gradient(to right, white, #E6E6E6);
 }
 
 .operations {
-    background-image: linear-gradient(to right, darkorange , #fb6904);
+    background-image: linear-gradient(to right, darkorange, #fb6904);
 }
 
 .equals {
     width: 210px;
     height: 90px;
     border-radius: 45px;
-    background-image: linear-gradient(to right, darkorange , #fb6904);
+    background-image: linear-gradient(to right, darkorange, #fb6904);
 }
 
-.C, .AC {
+.C,
+.AC {
     width: 155px;
     height: 80px;
-    border-radius: 45px; 
-    background-image: linear-gradient(to right, #f45b69 , #F42336);
+    border-radius: 45px;
+    background-image: linear-gradient(to right, #f45b69, #F42336);
 }
 
 img {
     width: 40px;
     height: 40px;
 }
-  
+
 
 
 
