@@ -18,6 +18,7 @@ body {
 
 .calculator-container {
     width: 550px;
+    min-width: 550px;
     height: 850px;
     padding: 45px 40px;
     border-radius: 25px;
