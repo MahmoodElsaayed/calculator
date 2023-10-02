@@ -24,13 +24,9 @@ const operate = {
 };
 
 function updateDisplay() {
-    if (displayValue) {
-        display.textContent = displayValue;
-    } else {
-        selectDisplayValue();
-    }
-    preventDisplayOverflow();
+    if (!displayValue) selectDisplayValue();
     display.textContent = displayValue;
+    preventDisplayOverflow();
     displayValue = "";
 }
 
