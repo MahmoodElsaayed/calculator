@@ -20,3 +20,8 @@
   cd calculator
   ```
   3. run ```index.html``` in your local browser
+
+
+## Contributions
+
+Contributions to this repository are generally not accepted, as the project was developed as part of a course assignment.
