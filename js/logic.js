@@ -64,7 +64,9 @@ function ensureSingleDecimal(event, operand) {
 }
 
 function getOperation(event) {
-    if (firstOperand && operation && secondOperand) {
+    if (!firstOperand) {
+        return;
+    } else if (firstOperand && operation && secondOperand) {
         equal();
     }
     operation = event.target.value;
