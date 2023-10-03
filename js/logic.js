@@ -10,6 +10,7 @@ operationButtons.forEach((button) => button.addEventListener("click", getOperati
 equalsButton.addEventListener("click", equal);
 backSpaceButton.addEventListener("click", backspace);
 clearButton.addEventListener("click", clear);
+document.addEventListener("keydown", handleKeyboardinput)
 
 let firstOperand = "";
 let secondOperand = "";
@@ -115,4 +116,19 @@ function clear() {
     secondOperand = "";
     operation = "";
     updateDisplay();
+}
+
+function handleKeyboardinput(event) {
+    const input = event.key;
+    if (["+", "-", "*", "/"].includes(input)) {
+        getOperation({target: {value: input}});
+    } else if (input == Number(input) || input === ".") {
+        getOperand({target: {value: input}});
+    } else if (input === "Backspace") {
+        backspace()
+    } else if (input === "Delete") {
+        clear()
+    } else if (input === "Enter") {
+        equal()
+    }
 }
