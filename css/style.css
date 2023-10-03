@@ -18,8 +18,9 @@ body {
 
 .calculator-container {
     width: 550px;
+    height: auto;
     min-width: 550px;
-    height: 850px;
+    min-height: 850px;
     padding: 45px 40px;
     border-radius: 25px;
     background-color: #252424;
@@ -29,10 +30,13 @@ body {
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    height: 175px;
+    height: auto;
+    min-height: 175px;
     padding: 20px;
     margin-bottom: 30px;
     border-radius: 25px;
+    word-break: break-word;
+    text-align: right;
     font-family: Poppins;
     font-size: 55px;
     background-color: rgb(201, 200, 200);

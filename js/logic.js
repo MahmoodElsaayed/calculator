@@ -44,6 +44,8 @@ function preventDisplayOverflow() {
         display.style.fontSize = `30px`;
     } else if (displayValue.length > MAX_LENGTH_BEFORE_FIRST_OVERFLOW) {
         display.style.fontSize = `40px`;
+    } else {
+        display.setAttribute("style", "word-break: break-word;");
     }
 }
 
